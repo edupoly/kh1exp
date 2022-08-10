@@ -1,11 +1,12 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser')
-
+var products = require('./products');
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
+app.use(express.static('public'))
 
 var students = [];
 
@@ -16,6 +17,35 @@ app.get("/",function(req,res){
 app.get("/students",function(req,res){
     console.log(students);
     res.send(JSON.stringify(students))
+})
+
+app.get("/products",function(req,res){
+    var productsPage =  `
+                            <html>
+                                <body>
+                                    ${
+                                        products.map((p)=>{
+                                            return `<li>
+                                                        <a href="/product/${p.id}">${p.title}</a>
+                                                    </li>`
+                                        })
+                                    }
+                                </body>
+                            </html>
+                        `;
+    res.send(productsPage)
+})
+
+app.get("/product/:id",function(req,res){
+    var myprod = products.find(function(a){
+        console.log(a.id)
+        console.log(req.params.id)
+        if(a.id==req.params.id){
+            return true
+        }
+    })
+    console.log(myprod)
+    res.send(myprod)
 })
 
 app.get("/getRegStuPage",function(req,res){
