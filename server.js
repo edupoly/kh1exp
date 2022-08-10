@@ -44,8 +44,14 @@ app.get("/product/:id",function(req,res){
             return true
         }
     })
-    console.log(myprod)
-    res.send(myprod)
+    var productDetailsUI = `
+        <div>
+            <h1>${myprod.title}</h1>
+            <img src="${myprod.image}" width="200px"/>
+            <h2>Price:${myprod.price}</h2>
+        </div>
+    `
+    res.send(productDetailsUI)
 })
 
 app.get("/getRegStuPage",function(req,res){
