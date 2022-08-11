@@ -1,0 +1,13 @@
+html 
+    head 
+        title= Products 
+        link(rel='stylesheet', href='/css/bootstrap.min.css')
+    body 
+        h1 Products Page
+        ul(class="d-flex flex-wrap justify-content-around")
+            each val in allProducts
+                li(class="w-25 p-3 m-3 border " style={'list-style':'none'})
+                    div(style={'min-height':'100px'})
+                        a(href= "/product/"+val.id)= val.title 
+                    div 
+                        img(src= val.image width='100px')

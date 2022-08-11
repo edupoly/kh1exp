@@ -7,6 +7,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 app.use(express.static('public'))
+app.set('view engine', 'pug');
 
 var students = [];
 
@@ -20,38 +21,32 @@ app.get("/students",function(req,res){
 })
 
 app.get("/products",function(req,res){
-    var productsPage =  `
-                            <html>
-                                <body>
-                                    ${
-                                        products.map((p)=>{
-                                            return `<li>
-                                                        <a href="/product/${p.id}">${p.title}</a>
-                                                    </li>`
-                                        })
-                                    }
-                                </body>
-                            </html>
-                        `;
-    res.send(productsPage)
+    res.render("productsPage",{allProducts:products})
+    // var productsPage =  `
+    //                         <html>
+    //                             <body>
+    //                                 ${
+    //                                     products.map((p)=>{
+    //                                         return `<li>
+    //                                                     <a href="/product/${p.id}">${p.title}</a>
+    //                                                 </li>`
+    //                                     })
+    //                                 }
+    //                             </body>
+    //                         </html>
+    //                     `;
+    // res.send(productsPage)
 })
 
 app.get("/product/:id",function(req,res){
+
     var myprod = products.find(function(a){
-        console.log(a.id)
-        console.log(req.params.id)
         if(a.id==req.params.id){
             return true
         }
     })
-    var productDetailsUI = `
-        <div>
-            <h1>${myprod.title}</h1>
-            <img src="${myprod.image}" width="200px"/>
-            <h2>Price:${myprod.price}</h2>
-        </div>
-    `
-    res.send(productDetailsUI)
+    
+    res.render("productDetails",myprod)
 })
 
 app.get("/getRegStuPage",function(req,res){
