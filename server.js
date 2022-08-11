@@ -11,31 +11,21 @@ app.set('view engine', 'pug');
 
 var students = [];
 
+app.use(function(req,res,next){
+    console.log("request for::::",req.url)
+    next();
+})
+
 app.get("/",function(req,res){
     res.sendFile(__dirname+"/mypage.html")
 })
 
 app.get("/students",function(req,res){
-    console.log(students);
     res.send(JSON.stringify(students))
 })
 
 app.get("/products",function(req,res){
     res.render("productsPage",{allProducts:products})
-    // var productsPage =  `
-    //                         <html>
-    //                             <body>
-    //                                 ${
-    //                                     products.map((p)=>{
-    //                                         return `<li>
-    //                                                     <a href="/product/${p.id}">${p.title}</a>
-    //                                                 </li>`
-    //                                     })
-    //                                 }
-    //                             </body>
-    //                         </html>
-    //                     `;
-    // res.send(productsPage)
 })
 
 app.get("/product/:id",function(req,res){
@@ -54,7 +44,6 @@ app.get("/getRegStuPage",function(req,res){
 })
 
 app.get("/registerStudent",function(req,res){
-    //console.log(req.query);
     res.send("please wait");
 })
 
