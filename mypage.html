@@ -1,7 +1,13 @@
 <html>
     <body>
         <h1>Welcome</h1>
-        <a href="/getRegStuPage">Register Student</a>
-        <img src="myimg1.jpg" alt="wait">
+        <form action="/addstudent" method="post" enctype="multipart/form-data">
+            <input type="text" name="firstname">
+            <br>
+            <input type="file" name="abcfile">
+            <br>
+            <button>Add Student</button>
+        </form>
+       
     </body>
 </html>
