@@ -1,8 +1,9 @@
 <html>
     <body>
-        <form action="/addFoodItem" method="post">
+        <form action="/addFoodItem" method="post" enctype="multipart/form-data">
             <input type="text" name="title" placeholder="title"><br/>
             <input type="text" name="price" placeholder="price"><br/>
+            <input type="file" name="img" placeholder="image"><br/>
             <button>Add Food Item</button>
         </form>
     </body>
